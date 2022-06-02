@@ -11,13 +11,13 @@ import (
 
 func main() {
 
-	confPath := flag.String("conf", `.\configuration\config.json`, "flag to set the path to the configuration json file")
+	confPath := flag.String("conf", `./src/lib/configuration/config.json`, "flag to set the path to the configuration json file")
 	flag.Parse()
 	// extract configuration
 	config, _ := configuration.ExtractConfiguration(*confPath)
 
 	log.Println("Connecting to database")
-	dbhandler, err := dblayer.NewPersistenceLayer(config.Databasetype, config.DBConnection)
+	dbhandler, err := dblayer.NewPersistenceLayer(config.Databasetype, config.DBConnection, config.DBName)
 	if err != nil {
 		log.Fatal(err)
 	}

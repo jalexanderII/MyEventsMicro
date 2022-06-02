@@ -8,14 +8,14 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
-	persistence2 "github.com/jalexanderII/MyEventsMicro/src/lib/persistence"
+	"github.com/jalexanderII/MyEventsMicro/src/lib/persistence"
 )
 
 type eventServiceHandler struct {
-	dbhandler persistence2.DatabaseHandler
+	dbhandler persistence.DatabaseHandler
 }
 
-func NewEventHandler(databasehandler persistence2.DatabaseHandler) *eventServiceHandler {
+func NewEventHandler(databasehandler persistence.DatabaseHandler) *eventServiceHandler {
 	return &eventServiceHandler{
 		dbhandler: databasehandler,
 	}
@@ -41,7 +41,7 @@ func (eh *eventServiceHandler) FindEventHandler(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	var event persistence2.Event
+	var event persistence.Event
 	var err error
 	switch strings.ToLower(criteria) {
 	case "name":
@@ -60,7 +60,7 @@ func (eh *eventServiceHandler) FindEventHandler(w http.ResponseWriter, r *http.R
 	_ = json.NewEncoder(w).Encode(&event)
 }
 
-func (eh *eventServiceHandler) AllEventHandler(w http.ResponseWriter, r *http.Request) {
+func (eh *eventServiceHandler) AllEventHandler(w http.ResponseWriter, _ *http.Request) {
 	events, err := eh.dbhandler.FindAllAvailableEvents()
 	if err != nil {
 		w.WriteHeader(500)
@@ -76,7 +76,7 @@ func (eh *eventServiceHandler) AllEventHandler(w http.ResponseWriter, r *http.Re
 }
 
 func (eh *eventServiceHandler) NewEventHandler(w http.ResponseWriter, r *http.Request) {
-	event := persistence2.Event{}
+	event := persistence.Event{}
 	err := json.NewDecoder(r.Body).Decode(&event)
 	if nil != err {
 		w.WriteHeader(500)

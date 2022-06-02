@@ -7,6 +7,11 @@ import (
 	"github.com/jalexanderII/MyEventsMicro/src/lib/persistence"
 )
 
+const (
+	certFile = "./src/eventsservice/cert.pem"
+	keyFile  = "./src/eventsservice/key.pem"
+)
+
 func ServeAPI(endpoint, tlsendpoint string, databasehandler persistence.DatabaseHandler) (chan error, chan error) {
 	handler := NewEventHandler(databasehandler)
 	r := mux.NewRouter()
@@ -18,7 +23,7 @@ func ServeAPI(endpoint, tlsendpoint string, databasehandler persistence.Database
 	httptlsErrChan := make(chan error)
 
 	go func() {
-		httptlsErrChan <- http.ListenAndServeTLS(tlsendpoint, "cert.pem", "key.pem", r)
+		httptlsErrChan <- http.ListenAndServeTLS(tlsendpoint, certFile, keyFile, r)
 	}()
 	go func() {
 		httpErrChan <- http.ListenAndServe(endpoint, r)

@@ -12,11 +12,11 @@ const (
 	DYNAMODB DBTYPE = "dynamodb"
 )
 
-func NewPersistenceLayer(options DBTYPE, connection string) (persistence.DatabaseHandler, error) {
+func NewPersistenceLayer(options DBTYPE, connection, databasename string) (persistence.DatabaseHandler, error) {
 
 	switch options {
 	case MONGODB:
-		return mongolayer.NewMongoDBLayer(connection)
+		return mongolayer.NewMongoDBLayer(connection, databasename)
 	}
 	return nil, nil
 }
