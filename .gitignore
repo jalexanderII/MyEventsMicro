@@ -17,3 +17,5 @@
 # Congif
 !/lib/configuration/config.json
 /lib/configuration/config.json
+
+.idea
