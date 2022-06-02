@@ -16,6 +16,6 @@
 .idea
 
 # Congif
-!/src/lib/configuration/config.json
-!/src/eventsservice/key.pem
-!/src/eventsservice/cert.pem
+/src/lib/configuration/config.json
+/src/eventsservice/key.pem
+/src/eventsservice/cert.pem
