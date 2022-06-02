@@ -11,7 +11,7 @@ import (
 var (
 	DBTypeDefault       = dblayer.MONGODB
 	DBConnectionDefault = "mongodb://127.0.0.1"
-	DBName              = "MyEvents"
+	DBNameDefault       = "MyEvents"
 	RestfulEPDefault    = "localhost:8181"
 	RestfulTLSEPDefault = "localhost:9191"
 )
@@ -28,7 +28,7 @@ func ExtractConfiguration(filename string) (ServiceConfig, error) {
 	conf := ServiceConfig{
 		DBTypeDefault,
 		DBConnectionDefault,
-		DBName,
+		DBNameDefault,
 		RestfulEPDefault,
 		RestfulTLSEPDefault,
 	}

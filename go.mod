@@ -3,7 +3,6 @@ module github.com/jalexanderII/MyEventsMicro
 go 1.17
 
 require (
-	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/gorilla/mux v1.8.0
 	go.mongodb.org/mongo-driver v1.9.1
 )
@@ -20,5 +19,4 @@ require (
 	golang.org/x/crypto v0.0.0-20201216223049-8b5274cf687f // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/text v0.3.5 // indirect
-	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 )
