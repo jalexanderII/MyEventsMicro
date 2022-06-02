@@ -8,14 +8,14 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
-	"github.com/jalexanderII/MyEventsMicro/lib/persistence"
+	persistence2 "github.com/jalexanderII/MyEventsMicro/src/lib/persistence"
 )
 
 type eventServiceHandler struct {
-	dbhandler persistence.DatabaseHandler
+	dbhandler persistence2.DatabaseHandler
 }
 
-func NewEventHandler(databasehandler persistence.DatabaseHandler) *eventServiceHandler {
+func NewEventHandler(databasehandler persistence2.DatabaseHandler) *eventServiceHandler {
 	return &eventServiceHandler{
 		dbhandler: databasehandler,
 	}
@@ -41,7 +41,7 @@ func (eh *eventServiceHandler) FindEventHandler(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	var event persistence.Event
+	var event persistence2.Event
 	var err error
 	switch strings.ToLower(criteria) {
 	case "name":
@@ -49,7 +49,7 @@ func (eh *eventServiceHandler) FindEventHandler(w http.ResponseWriter, r *http.R
 	case "id":
 		id, err := hex.DecodeString(searchkey)
 		if err == nil {
-			event, err = eh.dbhandler.FindEvent(id)
+			event, _ = eh.dbhandler.FindEvent(id)
 		}
 	}
 	if err != nil {
@@ -76,7 +76,7 @@ func (eh *eventServiceHandler) AllEventHandler(w http.ResponseWriter, r *http.Re
 }
 
 func (eh *eventServiceHandler) NewEventHandler(w http.ResponseWriter, r *http.Request) {
-	event := persistence.Event{}
+	event := persistence2.Event{}
 	err := json.NewDecoder(r.Body).Decode(&event)
 	if nil != err {
 		w.WriteHeader(500)

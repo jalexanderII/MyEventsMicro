@@ -1,8 +1,8 @@
 package dblayer
 
 import (
-	"github.com/jalexanderII/MyEventsMicro/lib/persistence"
-	"github.com/jalexanderII/MyEventsMicro/lib/persistence/mongolayer"
+	"github.com/jalexanderII/MyEventsMicro/src/lib/persistence"
+	"github.com/jalexanderII/MyEventsMicro/src/lib/persistence/mongolayer"
 )
 
 type DBTYPE string

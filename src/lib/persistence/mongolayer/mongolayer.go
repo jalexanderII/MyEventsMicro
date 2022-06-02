@@ -3,7 +3,7 @@ package mongolayer
 import (
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
-	"github.com/jalexanderII/MyEventsMicro/lib/persistence"
+	persistence2 "github.com/jalexanderII/MyEventsMicro/src/lib/persistence"
 )
 
 const (
@@ -16,14 +16,14 @@ type MongoDBLayer struct {
 	session *mgo.Session
 }
 
-func NewMongoDBLayer(connection string) (persistence.DatabaseHandler, error) {
+func NewMongoDBLayer(connection string) (persistence2.DatabaseHandler, error) {
 	s, err := mgo.Dial(connection)
 	return &MongoDBLayer{
 		session: s,
 	}, err
 }
 
-func (mgoLayer *MongoDBLayer) AddEvent(e persistence.Event) ([]byte, error) {
+func (mgoLayer *MongoDBLayer) AddEvent(e persistence2.Event) ([]byte, error) {
 	s := mgoLayer.getFreshSession()
 	defer s.Close()
 
@@ -38,27 +38,27 @@ func (mgoLayer *MongoDBLayer) AddEvent(e persistence.Event) ([]byte, error) {
 	return []byte(e.ID), s.DB(DB).C(EVENTS).Insert(e)
 }
 
-func (mgoLayer *MongoDBLayer) FindEvent(id []byte) (persistence.Event, error) {
+func (mgoLayer *MongoDBLayer) FindEvent(id []byte) (persistence2.Event, error) {
 	s := mgoLayer.getFreshSession()
 	defer s.Close()
-	e := persistence.Event{}
+	e := persistence2.Event{}
 
 	err := s.DB(DB).C(EVENTS).FindId(bson.ObjectId(id)).One(&e)
 	return e, err
 }
 
-func (mgoLayer *MongoDBLayer) FindEventByName(name string) (persistence.Event, error) {
+func (mgoLayer *MongoDBLayer) FindEventByName(name string) (persistence2.Event, error) {
 	s := mgoLayer.getFreshSession()
 	defer s.Close()
-	e := persistence.Event{}
+	e := persistence2.Event{}
 	err := s.DB(DB).C(EVENTS).Find(bson.M{"name": name}).One(&e)
 	return e, err
 }
 
-func (mgoLayer *MongoDBLayer) FindAllAvailableEvents() ([]persistence.Event, error) {
+func (mgoLayer *MongoDBLayer) FindAllAvailableEvents() ([]persistence2.Event, error) {
 	s := mgoLayer.getFreshSession()
 	defer s.Close()
-	var events []persistence.Event
+	var events []persistence2.Event
 	err := s.DB(DB).C(EVENTS).Find(nil).All(&events)
 	return events, err
 }
