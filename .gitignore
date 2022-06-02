@@ -13,3 +13,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Congif
+!/lib/configuration/config.json
+/lib/configuration/config.json

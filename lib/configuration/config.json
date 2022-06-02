@@ -1,0 +1,5 @@
+{
+  "databasetype": "mongodb",
+  "dbconnection": "mongodb+srv://fudoshin2596:Qnacmg797y@cluster0.llo1huj.mongodb.net/?retryWrites=true&w=majority",
+  "restfulapi_endpoint":"localhost:8181"
+}
